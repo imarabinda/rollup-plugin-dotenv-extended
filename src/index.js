@@ -42,6 +42,9 @@ export default function dotenvExtendedPlugin(inputOptions) {
   return {
     ...replace({
       values: stringified,
+      preventAssignment: true,
+      delimiters: ['', ''],
+      objectGuards:true,
     }),
     name: 'dotenvExtended',
   }

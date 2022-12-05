@@ -35,11 +35,11 @@
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "rollup": "^3.2.0",
-    "@rollup/plugin-terser": "^0.2.0",
-    "@rollup/plugin-replace": "^5.0.1"
+    "@rollup/plugin-terser": "^0.2.0"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
+    "@rollup/plugin-replace": "^5.0.1",
     "dotenv-expand": "^9.0.0"
   },
   "peerDependencies": {
