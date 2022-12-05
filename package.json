@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-dotenv-extended",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Rollup plugin that loads available .env files and replaces the defined variables with their values, you can also extended their values with .env variables",
   "main": "./dist/rollup-plugin-dotenv-extended.js",
   "types": "./index.d.ts",
