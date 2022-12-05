@@ -34,11 +34,11 @@
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "rollup": "^3.2.0"
+    "rollup": "^3.2.0",
+    "@rollup/plugin-terser": "^0.2.0",
+    "@rollup/plugin-replace": "^5.0.1"
   },
   "dependencies": {
-    "@rollup/plugin-replace": "^5.0.1",
-    "@rollup/plugin-terser": "^0.2.0",
     "dotenv": "^16.0.3",
     "dotenv-expand": "^9.0.0"
   },
