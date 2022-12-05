@@ -1,0 +1,48 @@
+{
+  "name": "rollup-plugin-dotenv-extended",
+  "version": "1.0.0",
+  "description": "Rollup plugin that loads available .env files and replaces the defined variables with their values, you can also extended their values with .env variables",
+  "main": "./dist/rollup-plugin-dotenv-extended.js",
+  "types": "./index.d.ts",
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "rollup -c --bundleConfigAsCjs",
+    "postbuild": "prettier --write dist/*",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "rollup",
+    "dotenv",
+    "dotenv extended",
+    "extended"
+  ],
+  "author": "Arabinda Baidya <hello@imarabinda.in> (https://github.com/imarabinda)",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "@rollup/plugin-babel": "^6.0.2",
+    "babel-plugin-macros": "^3.1.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^3.2.0"
+  },
+  "dependencies": {
+    "@rollup/plugin-replace": "^5.0.1",
+    "@rollup/plugin-terser": "^0.2.0",
+    "dotenv": "^16.0.3",
+    "dotenv-expand": "^9.0.0"
+  },
+  "peerDependencies": {
+    "rollup": "^1.20.0 || ^2.0.0 || ^3.0.0"
+  }
+}
