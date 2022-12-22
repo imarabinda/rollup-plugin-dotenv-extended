@@ -10,6 +10,12 @@ export interface RollupDotenvExtendedOptions {
    * @default 'NODE_ENV'
    */
   envKey?: string
+  include?: string | string[]
+  exclude?: string | string[]
+  verbose?: boolean
 }
 
-export default function dotenvExtendedPlugin(options?: RollupDotenvExtendedOptions): Plugin
+export default function dotenvExtendedPlugin(
+  env?: Object,
+  options?: RollupDotenvExtendedOptions,
+): Plugin

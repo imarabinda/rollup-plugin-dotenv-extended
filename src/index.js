@@ -1,13 +1,14 @@
 import fs from 'fs'
 import path from 'path'
-import replace from '@rollup/plugin-replace'
+import injectProcessEnv from 'rollup-plugin-inject-process-env'
 
-const withDefaults = ({ cwd = '.', envKey = 'NODE_ENV' } = {}) => ({
+const withDefaults = ({ cwd = '.', envKey = 'NODE_ENV' }) => ({
   cwd: path.resolve(process.cwd(), cwd),
   envKey,
 })
 
-export default function dotenvExtendedPlugin(inputOptions) {
+export default function dotenvExtendedPlugin(env = {}, inputOptions = {}) {
+  const { include, exclude, verbose } = inputOptions
   const { cwd, envKey } = withDefaults(inputOptions)
 
   var dotenvFiles = [
@@ -27,25 +28,19 @@ export default function dotenvExtendedPlugin(inputOptions) {
     }
   })
 
-  // Stringify all values so we can feed into replace plugin
-  const stringified = Object.keys(process.env).reduce(
+  // Values to feed
+  const values = Object.keys(process.env).reduce(
     (env, key) => {
-      env['process.env.' + key] = JSON.stringify(process.env[key])
+      env[key] = process.env[key]
       return env
     },
     {
-      'process.env.NODE_ENV':
-        JSON.stringify(process.env.NODE_ENV) || 'production',
+      NODE_ENV: process.env.NODE_ENV || 'production',
     },
   )
 
   return {
-    ...replace({
-      values: stringified,
-      preventAssignment: true,
-      delimiters: ['', ''],
-      objectGuards:true,
-    }),
+    ...injectProcessEnv({ ...values, ...env }, { include, exclude, verbose }),
     name: 'dotenvExtended',
   }
 }
