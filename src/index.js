@@ -7,7 +7,7 @@ const withDefaults = ({ cwd = '.', envKey = 'NODE_ENV' }) => ({
   envKey,
 })
 
-export default function dotenvExtendedPlugin(env = {}, inputOptions = {}) {
+export default function dotenvExtendedPlugin(passedEnvValues = {}, inputOptions = {}) {
   const { include, exclude, verbose } = inputOptions
   const { cwd, envKey } = withDefaults(inputOptions)
 
@@ -29,18 +29,23 @@ export default function dotenvExtendedPlugin(env = {}, inputOptions = {}) {
   })
 
   // Values to feed
-  const values = Object.keys(process.env).reduce(
-    (env, key) => {
-      env[key] = process.env[key]
-      return env
-    },
-    {
-      NODE_ENV: process.env.NODE_ENV || 'production',
-    },
-  )
+  const values = Object.keys(process.env)
+    .filter((key) => ROLLUP.test(key))
+    .reduce(
+      (env, key) => {
+        env[key] = process.env[key]
+        return env
+      },
+      {
+        NODE_ENV: process.env.NODE_ENV || 'production',
+      },
+    )
 
   return {
-    ...injectProcessEnv({ ...values, ...env }, { include, exclude, verbose }),
+    ...injectProcessEnv(
+      { ...values, ...passedEnvValues },
+      { include, exclude, verbose },
+    ),
     name: 'dotenvExtended',
   }
 }

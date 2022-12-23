@@ -5,6 +5,7 @@
 ```console
 npm install rollup-plugin-dotenv-extended
 ```
+This package extends functionality of  ```rollup-plugin-inject-process-env``` plugin.
 
 ## Usage
 
@@ -19,7 +20,15 @@ export default {
     dir: "dist/build"
   ],
   plugins: [
-    dotenvExtended()
+    dotenvExtended(
+        env: object,
+        options?: {
+            cwd?:string,
+            envKey?:string,
+            include?: string | string[],
+            exclude?: string | string[],
+            verbose?: boolean
+        })
   ]
 }
 ```
@@ -55,6 +64,14 @@ if you want to know more about the principle and restrictions of replacement, pl
 
 You can specify the options below.
 
+### `env`
+
+Type: `Object`
+Default: `{}`
+Pass any JSON object to the plugin that will be set as the process.env value. This object accept members value of any type.The value will override .env values if exists same key.
+
+### `options`
+
 ### `cwd`
 
 Type: `String`
@@ -69,9 +86,28 @@ Default: `"NODE_ENV"`
 
 key used to search for .env files by node environment
 
+### `include`
+
+Type: `String | String[]`
+Default: `""`
+
+### `exclude`
+
+Type: `String | String[]`
+Default: `""`
+
+The include and exclude options allow to explicitely specify with a [minimatch pattern](https://github.com/isaacs/minimatch) the files to accept or reject. By default, all files are targeted and no files are rejected.
+
+### `verbose`
+
+Type: `Boolean`
+Default: `false`
+
+This option allows to show which file is included in the process and which one is excluded.
+
 Rollup will merge env vars located at
 
-```
+```js
 [
   `.env.${process.env[envKey]}.local`,
   `.env.${process.env[envKey]}`,
@@ -82,10 +118,15 @@ Rollup will merge env vars located at
 
 so if you are in `prod`, rollup will search in
 
-```
+```js
 ['.env.prod.local', '.env.prod', '.env.local', '.env']
-```
-
+``` 
 and merge the result.
 
+> Variables starting with ```ROLLUP``` will be included from .env files.
+
 [LICENSE (MIT)](/LICENSE)
+### Who ?
+
+* [Arabinda](http://imarabinda.in)
+* [Arabinda@Github](http://github.com/imarabinda)
