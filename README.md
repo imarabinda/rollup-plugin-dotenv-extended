@@ -123,7 +123,7 @@ so if you are in `prod`, rollup will search in
 ``` 
 and merge the result.
 
-> Variables starting with ```ROLLUP``` will be included from .env files.
+> Variables starting with ```ROLLUP_``` will be included from .env files.
 
 [LICENSE (MIT)](/LICENSE)
 ### Who ?

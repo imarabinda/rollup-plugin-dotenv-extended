@@ -7,7 +7,10 @@ const withDefaults = ({ cwd = '.', envKey = 'NODE_ENV' }) => ({
   envKey,
 })
 
-export default function dotenvExtendedPlugin(passedEnvValues = {}, inputOptions = {}) {
+export default function dotenvExtendedPlugin(
+  passedEnvValues = {},
+  inputOptions = {},
+) {
   const { include, exclude, verbose } = inputOptions
   const { cwd, envKey } = withDefaults(inputOptions)
 
@@ -27,10 +30,10 @@ export default function dotenvExtendedPlugin(passedEnvValues = {}, inputOptions 
       dotEnvExtend.expand(dotEnv)
     }
   })
-
+  const ROLLUP_REGEX = /^ROLLUP_/i
   // Values to feed
   const values = Object.keys(process.env)
-    .filter((key) => ROLLUP.test(key))
+    .filter((key) => ROLLUP_REGEX.test(key))
     .reduce(
       (env, key) => {
         env[key] = process.env[key]
